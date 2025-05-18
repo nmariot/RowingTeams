@@ -33,40 +33,6 @@ namespace RowingTeams
 
         public static int GetMaxOptimalAge(RaceCategory category) => GetMinAge((RaceCategory)((int)category + 1));
 
-        public static Race CreateRaceFromLibelle(string libelle)
-        {
-            int number;
-            RaceType rt;
-            RaceCategory category;
-            int nbRowers;
-
-            var data = libelle.Split(' ');
-            number = int.Parse(data[0]);
-
-            if (data.Length == 3)
-            {
-                if (data[1][0] == 'W')
-                {
-                    rt = RaceType.Women;
-                    _ = Enum.TryParse(data[1][1].ToString(), out category);
-                }
-                else
-                {
-                    rt = RaceType.Men;
-                    _ = Enum.TryParse(data[1], out category);
-                }
-                nbRowers = int.Parse(data[2][0].ToString());
-            }
-            else
-            {
-                rt = RaceType.Mixed;
-                _ = Enum.TryParse(data[2], out category);
-                nbRowers = int.Parse(data[3][0].ToString());
-            }
-
-            return new Race(number, libelle, rt, nbRowers, category);
-        }
-
         public static List<Boat> GetBoatsFromRace(Race race, List<Rower> rowers, bool withOptimalAge)
         {
             // Pseudocode:
